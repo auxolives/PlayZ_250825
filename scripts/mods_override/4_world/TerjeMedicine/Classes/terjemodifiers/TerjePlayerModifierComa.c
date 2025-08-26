@@ -18,34 +18,47 @@ modded class TerjePlayerModifierComa
         if (!player.GetAllowDamage())
             return;
 
-        if (!m_InComa)
+        if (m_InComa)
         {
-            if (m_TimerOutOfComa > 0)
-            {
-                m_TimerOutOfComa = Math.Max(m_TimerOutOfComa - deltaTime, 0);
-                return;
-            }
-
-            if (IsCritical(player))
-                EnterComa(player);
+            HandleStateInComa(player, deltaTime);
         }
         else
         {
-            float curShock = player.GetHealth("", "Shock");
+            HandleStateNotInComa(player, deltaTime);
+        }
+    }
 
-            bool stillCritical = IsCritical(player);
+    private void HandleStateInComa(PlayerBase player, float deltaTime)
+    {
+        float curShock = player.GetHealth("", "Shock");
+        bool stillCritical = IsCritical(player);
 
-            if (curShock > PlayerConstants.UNCONSCIOUS_THRESHOLD / 5 || !stillCritical)
-            {
-                ExitComa(player);
-                return;
-            }
+        if (curShock > PlayerConstants.UNCONSCIOUS_THRESHOLD / 5 || !stillCritical)
+        {
+            ExitComa(player);
+            return;
+        }
 
-            player.SetHealth("", "Shock", 0);
+        player.SetHealth("", "Shock", 0);
 
-            m_ComaTimer += deltaTime;
-            if (m_ComaTimer >= m_ComaDurationThreshold)
-                ExitComa(player);
+        m_ComaTimer += deltaTime;
+        if (m_ComaTimer >= m_ComaDurationThreshold)
+        {
+            ExitComa(player);
+        }
+    }
+
+    private void HandleStateNotInComa(PlayerBase player, float deltaTime)
+    {
+        if (m_TimerOutOfComa > 0)
+        {
+            m_TimerOutOfComa = Math.Max(m_TimerOutOfComa - deltaTime, 0);
+            return;
+        }
+
+        if (IsCritical(player))
+        {
+            EnterComa(player);
         }
     }
 
