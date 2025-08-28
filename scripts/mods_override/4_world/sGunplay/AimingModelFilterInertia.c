@@ -15,15 +15,15 @@ modded class AimingModelFilterInertia
 
 		float staminaMultiplier = 1.0;
 		float resetSpeedMultiplier = 1.0;
-		PlayerBase player = PlayerBase.Cast(getAimingModel().m_pPlayer);
+		PlayerBase player = PlayerBase.Cast(getAimingModel().GetPlayer());
 		if (player)
 		{
 			StaminaHandler staminaHandler = player.GetStaminaHandler();
 			if (staminaHandler)
 			{
 				float staminaFraction = Math.Clamp(staminaHandler.GetStamina() / staminaHandler.GetStaminaMax(), 0, 1);
-				staminaMultiplier = Math.Map(staminaFraction, 0.0, 1.0, 1.75, 0.9); 
-				resetSpeedMultiplier = Math.Map(staminaFraction, 0.0, 1.0, 0.6, 1.1);
+				staminaMultiplier = Math.Remap(0.0, 1.0, 1.75, 0.9, staminaFraction); 
+				resetSpeedMultiplier = Math.Remap(0.0, 1.0, 0.6, 1.1, staminaFraction);
 			}
 		}
 
