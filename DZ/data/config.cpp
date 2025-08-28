@@ -102,8 +102,8 @@ class CfgWorlds
 	};
 	class ChernarusPlus: CAWorld
 	{
-		latitude = 68.970556;
-		longitude = 33.075;
+		latitude = 54.8;
+		longitude = -68.3;
 	};
 };
 class cfgLiquidDefinitions
