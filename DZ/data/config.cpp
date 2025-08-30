@@ -6,104 +6,29 @@ class CfgPatches
 		weapons[] = {};
 		requiredVersion = 0.1;
 		requiredAddons[] = {
-			"DZ_Data"
+			"DZ_Data",
+			"DZ_Worlds_Chernarusplus_World"
 		};
-		worlds[] = {};
 	};
 };
 class CfgWorlds
 {
-	initWorld = "ChernarusPlus";
 	class DefaultLighting
 	{
-		groundReflection[] = {
-			0.0085,
-			0.0068,
-			0.0034
-		};
-		moonObjectColorFull[] = {
-			0.5,
-			0.4,
-			0.4,
-			1
-		};
-		moonHaloObjectColorFull[] = {
-			0.5,
-			0.4,
-			0.4,
-			0
-		};
-		moonsetObjectColor[] = {
-			0.55,
-			0.35,
-			0.25
-		};
-		moonsetHaloObjectColor[] = {
-			0.55,
-			0.35,
-			0.25
-		};
-		nightAngle = 5;
-		sunSunset = 20;
-		endSunset = 10;
-		moonDayIntensity = 20.5;
-		moonNightIntensity = 3.5000002;
+		moonDayIntensity = 10.0;
+		moonNightIntensity = 8.0;
 	};
-	class DefaultWorld
+	class DefaultWorld;
+	class CAWorld
 	{
-		class Weather
-		{
-			class Overcast
-			{
-				class Weather1;
-				class Weather2;
-				class Weather3;
-				class Weather4;
-				class Weather5;
-			};
-		};
-	};
-	class CAWorld: DefaultWorld
-	{
-		class Weather: Weather
-		{
-			class VolFog
-			{
-				CameraFog = 0;
-				Item1[] = {
-					800,
-					0.06,
-					0.93,
-					0.13,
-					1
-				};
-				Item2[] = {
-					1300,
-					0.02,
-					0.9,
-					0.05,
-					1
-				};
-			};
-			class Fog
-			{
-				nearDistanceFraction = 0.4;
-				farDistanceFraction = 0.8;
-			};
-			class RainFog
-			{
-				distance = 600;
-			};
-			class SnowfallFog
-			{
-				distance = 600;
-			};
-		};
+		hazeDistCoef = 0;
+		hazeFogCoef = 0.5;
+		volFogOffset = 0;
 	};
 	class ChernarusPlus: CAWorld
 	{
-		latitude = 54.8;
-		longitude = -68.3;
+		latitude = 54;
+		longitude = -68;
 	};
 };
 class cfgLiquidDefinitions
@@ -118,6 +43,6 @@ class cfgLiquidDefinitions
 	};
 	class Gasoline
 	{
-		liquidFreezeThreshold=-40;
+		liquidFreezeThreshold = -40;
 	};
 };
