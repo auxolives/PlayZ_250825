@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class DZ_Sound_Weapons
+	class DZ_Sound_Weapons_PlayZ
 	{
 		units[] = {};
 		weapons[] = {};
