@@ -292,12 +292,12 @@ class CfgSurfaceCharacters
 {
 	class cp_grass
 	{
-		probability[] = {0.0,		 0.0,	   0.0,	      0.09,		0.0,		  0.0,	     0.0,	0.0,	       0.16,		0.0,		0.0,		0.14,		0.17,		0.22};
+		probability[] = {0.0,		 0.0,	   0.0,	      0.08,		0.0,		  0.0,	     0.0,	0.0,	       0.14,		0.0,		0.0,		0.12,		0.15,		0.20};
 		names[] = {"hypericumcarduus","bodlak","bodlak2","Anthoxanthum","Anthoxanthum_bended","Carduus","Hypericum","Elytrigia","ElytrigiaGreen","ElytrigiaTall","BrownGrass_Lump","Stubble_summer","Wheat2_summer","BrownGrass"};
 	};
 	class cp_grass_tall
 	{
-		probability[] = {0.0,		0.0,	  0.0,	      0.09,	        0.0,    	 0.0,      0.0,		0.0,	      0.08,		0.09,		0.1,		0.12,		0.15,		0.18};
+		probability[] = {0.0,		0.0,	  0.0,	      0.08,	        0.0,    	 0.0,      0.0,		0.0,	      0.08,		0.07,		0.08,		0.11,		0.13,		0.16};
 		names[] = {"hypericumcarduus","bodlak","bodlak2","Anthoxanthum","Anthoxanthum_bended","Carduus","Hypericum","Elytrigia","ElytrigiaGreen","ElytrigiaTall","BrownGrass_Lump","Stubble_summer","Wheat2_summer","BrownGrass"};
 	};
 	class cp_broadleaf_sparse1
