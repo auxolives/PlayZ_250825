@@ -864,7 +864,7 @@ class CfgTerjeSkills
 			{
 				enabled = 1;
 				stagesCount = 4;
-				requiredSkillLevels[] = { 2, 7, 13, 1 };
+				requiredSkillLevels[] = { 2, 7, 13, 19 };
 				requiredPerkPoints[] = { 1, 1, 1, 1 };
 				values[] = { 1.20, 1.80, 2.40, 3.00 };
 			};
