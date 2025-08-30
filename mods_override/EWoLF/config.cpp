@@ -5,7 +5,7 @@ class CfgPatches
 		units[] = {};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Data", "DZ_Surfaces"};
+		requiredAddons[] = {"DZ_Data", "DZ_Surfaces", "DZ_Surfaces_Sakhal", "DZ_Surfaces_Bliss"};
 	};
 };
 
