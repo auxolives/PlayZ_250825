@@ -9,6 +9,7 @@ class BuildingZombieSpawner
     private ref map<string, ref array<int>> m_BuildingToAnchors;
     private ref map<string, int>            m_BuildingCap;
     private ref array<string>               m_AnchorToBKey;
+    private ref map<int, bool>              m_AnchorBlockCache;
 
     void BuildingZombieSpawner()
     {
@@ -23,6 +24,7 @@ class BuildingZombieSpawner
         m_BuildingToAnchors = new map<string, ref array<int>>;
         m_BuildingCap       = new map<string, int>;
         m_AnchorToBKey      = new array<string>;
+        m_AnchorBlockCache  = new map<int, bool>;
 
         BuildAnchorsFromFiles(PlayZConfig.GetInstance().GetProtoPath(), PlayZConfig.GetInstance().GetPosPath());
 
@@ -331,6 +333,8 @@ class BuildingZombieSpawner
         GetGame().GetPlayers(players);
         if (players.Count() == 0) return;
 
+        m_AnchorBlockCache.Clear();
+
         float nowSec = GetGame().GetTime() * 0.001;
         int totalAlive = CountAllAlive();
         bool globalCapReached = totalAlive >= m_Settings.MaxInfected;
@@ -373,6 +377,24 @@ class BuildingZombieSpawner
 
                 if (d < m_Settings.SafeCheckRadius) continue;
                 if (d > m_Settings.CheckRadius)     continue;
+
+                bool isBlockedBySpecialObject;
+                if (m_AnchorBlockCache.Find(idx, isBlockedBySpecialObject))
+                {
+                    if (isBlockedBySpecialObject)
+                        continue;
+                }
+                else
+                {
+                    isBlockedBySpecialObject = IsNearForbiddenObject(a.worldPos);
+                    m_AnchorBlockCache.Set(idx, isBlockedBySpecialObject);
+                    if (isBlockedBySpecialObject)
+                    {
+                        if (m_Settings && m_Settings.DebugConfigLog == 1)
+                            Print(string.Format("[PlayZ] DEBUG: spawn at %1 for %2 is blocked by a nearby special object (flag/barrel).", a.worldPos, a.buildingType));
+                        continue;
+                    }
+                }
 
                 bool blocked = false;
                 for (int oi = 0; oi < players.Count(); oi++)
@@ -526,5 +548,27 @@ class BuildingZombieSpawner
         vector boxCenter  = (boxMin + boxMax) * 0.5;
         vector edgeLength = boxMax - boxMin;
         return !GetGame().IsBoxColliding(boxCenter, Vector(0,0,0), edgeLength, excluded);
+    }
+
+    private bool IsNearForbiddenObject(vector pos)
+    {
+        const float FORBIDDEN_RADIUS = 200.0;
+        array<Object> nearbyObjects = new array<Object>;
+        array<CargoBase> proxyCargos = new array<CargoBase>;
+        GetGame().GetObjectsAtPosition3D(pos, FORBIDDEN_RADIUS, nearbyObjects, proxyCargos);
+
+        for (int i = 0; i < nearbyObjects.Count(); i++)
+        {
+            Object obj = nearbyObjects.Get(i);
+            if (obj)
+            {
+                if (obj.IsInherited(TerritoryFlag) || obj.IsInherited(BarrelHoles_ColorBase))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
