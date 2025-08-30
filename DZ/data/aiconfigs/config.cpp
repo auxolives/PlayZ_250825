@@ -36,7 +36,7 @@ class PathGraphFilters
 				"walk",
 				"jumpover",
 				"door",
-				"inside",
+				"inside"
 			};
 			exclude[] = {
 				"disabled",
