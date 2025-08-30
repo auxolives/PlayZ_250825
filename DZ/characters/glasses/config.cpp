@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class DZ_Characters_Glasses
+	class DZ_Characters_Glasses_PlayZ
 	{
 		units[]=
 		{
